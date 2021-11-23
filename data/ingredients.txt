@@ -1,0 +1,4 @@
+Ground Beef;1/4 Pound;8;
+Cheese;Slice;0;Vegetarian;
+Bread;Slice;12;Vegetarian;Vegan;
+Milk;1/2 Cup;2;Vegetarian;
