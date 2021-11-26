@@ -1,12 +1,12 @@
 import java.util.HashMap;
 
 /**
- * A possible Recipie
+ * A possible Recipe
  */
-public class Recipie {
+public class Recipe {
     private String name;
     private HashMap<Ingredient, Integer> ingredients;
-    public Recipie(String name) {
+    public Recipe(String name) {
         this.name = name;
         ingredients = new HashMap<Ingredient, Integer>();
     }

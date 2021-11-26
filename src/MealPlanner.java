@@ -7,7 +7,7 @@ public class MealPlanner{
         Planner planner = new Planner();
         IO io = new IO();
         io.readIngredients(planner);
-        io.readRecipies(planner);
+        io.readRecipes(planner);
         //Stuff Happens
     }
 }

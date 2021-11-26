@@ -63,7 +63,7 @@ public abstract class DirectedConstraintGraph {
     /**
      * Get all outgoing edges for a given Vertex
      * @param givenVertex the given Vertex
-     * @return ArrayList of outgoing edges from the Vertexs
+     * @return ArrayList of outgoing edges from the Vertices
      */
     public ArrayList<Edge> getOutgoingEdges(Vertex<?,?> givenVertex) {
         ArrayList<Edge> returnList = new ArrayList<Edge>();
@@ -128,7 +128,7 @@ public abstract class DirectedConstraintGraph {
      */
     public boolean isValid() {
         for (Edge edge : getEdges()) {
-            // Unassigned values for vertices don't stop a graph from being valid -- it just means its not complete
+            // Unassigned values for vertices don't stop a graph from being valid -- it just means it's not complete
             if (edge.verticesHaveAssignedValues()) {
                 // If edge does not satisfy constraints, graph is not valid
                 if (!edge.satisfiesConstraint())

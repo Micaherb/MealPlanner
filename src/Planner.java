@@ -6,12 +6,12 @@ import java.util.HashMap;
  */
 // Test change
 public class Planner {
-    private RecipieList recipies;
-    private ArrayList<Recipie> mealPlan;
+    private RecipeList recipes;
+    private ArrayList<Recipe> mealPlan;
     private HashMap<String, Ingredient> totalIngredients;
     public Planner() {
-        recipies = new RecipieList();
-        mealPlan = new ArrayList<Recipie>();
+        recipes = new RecipeList();
+        mealPlan = new ArrayList<Recipe>();
         totalIngredients = new HashMap<String, Ingredient>();
     }
 
@@ -23,15 +23,15 @@ public class Planner {
         return totalIngredients.get(i);
     }
 
-    public void addRecipie(Recipie recipie){
-        recipies.add(recipie);
+    public void addRecipe(Recipe recipe){
+        recipes.add(recipe);
     }
 
     public HashMap<String, Ingredient> getIngredients(){
         return totalIngredients;
     }
 
-    public ArrayList<Recipie> getRecipies(){
-        return recipies.getAll();
+    public ArrayList<Recipe> getRecipes(){
+        return recipes.getAll();
     }
 }

@@ -42,16 +42,16 @@ public class IO {
         }
     }
 
-    public void readRecipies(Planner planner) {
+    public void readRecipes(Planner planner) {
         try {
-            File file = new File("./data/recipies.txt");
+            File file = new File("./data/recipes.txt");
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNextLine()) {
                 //Get Next Line
                 String data = fileScanner.nextLine();
                 //Get the name
                 String name = data.substring(0, data.indexOf(";"));
-                Recipie r = new Recipie(name);
+                Recipe r = new Recipe(name);
                 data = data.substring(data.indexOf(";") + 1);
                 //Get all Ingredients
                 while (data.length() > 0) {
@@ -62,8 +62,8 @@ public class IO {
                     data = data.substring(data.indexOf(";") + 1);
                     r.addIngredient(ingredient, count);
                 }
-                //Add Recipie to the planner
-                planner.addRecipie(r);
+                //Add recipe to the planner
+                planner.addRecipe(r);
             }
         } catch (FileNotFoundException var10) {
             var10.printStackTrace();
