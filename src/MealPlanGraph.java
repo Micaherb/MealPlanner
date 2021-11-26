@@ -1,8 +1,10 @@
-package Graph;
+import Graph.DirectedConstraintGraph;
 
 public class MealPlanGraph extends DirectedConstraintGraph {
 
-    // Eventually: Set up a comparator class for a generic comparison Edge.
+    /**
+     * Edge satisfied if the two vertices have non-equal values
+     */
     public class NotEqualEdge extends Edge {
         /**
          * Initialize with start and endVertex
@@ -18,4 +20,22 @@ public class MealPlanGraph extends DirectedConstraintGraph {
             return !(getStartVertex().equals(getEndVertex()));
         }
     }
+
+    /**
+     * Edge satisfied if the two vertices have recipes that are vegetarian
+     */
+    public class IsVegetarianEdge extends Edge {
+
+        public IsVegetarianEdge(Vertex<Recipe, ?> startVertex, Vertex<Recipe, ?> endVertex) {
+            super(startVertex, endVertex);
+        }
+
+        @Override
+        public boolean satisfiesConstraint() {
+
+            return true;
+        }
+    }
+
+
 }

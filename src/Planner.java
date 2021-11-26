@@ -16,11 +16,11 @@ public class Planner {
     }
 
     public void addIngredient(Ingredient ingredient){
-        totalIngredients.put(ingredient.getName(), ingredient);
+        totalIngredients.put(ingredient.getName().toLowerCase(), ingredient);
     }
 
     public Ingredient getIngredient(String i){
-        return totalIngredients.get(i);
+        return totalIngredients.get(i.toLowerCase());
     }
 
     public void addRecipe(Recipe recipe){

@@ -2,6 +2,9 @@ package Graph;
 
 import java.util.ArrayList;
 
+/**
+ * Forward checking is baked in via each Vertex having a list of possible values
+ */
 public abstract class DirectedConstraintGraph {
     /** The list of all vertices */
     ArrayList<Vertex<?, ?>> vertexList;
@@ -15,10 +18,12 @@ public abstract class DirectedConstraintGraph {
      */
     public abstract class Vertex<T extends Comparable<T>, U extends Comparable<U>> {
         T val;
+        ArrayList<T> possibleValues;
         U id;
-        public Vertex(T val, U id) {
-            this.val = val;
+        public Vertex(U id, T val, ArrayList<T> possibleValues) {
             this.id = id;
+            this.val = val;
+            this.possibleValues = possibleValues;
         }
 
         public boolean equals(Vertex<T, U> v) {

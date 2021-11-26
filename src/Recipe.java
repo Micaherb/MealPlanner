@@ -1,22 +1,29 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * A possible Recipe
  */
-public class Recipe {
+public class Recipe implements Comparable<Recipe> {
     private String name;
-    private HashMap<Ingredient, Integer> ingredients;
+    private ArrayList<Ingredient> ingredients;
     public Recipe(String name) {
         this.name = name;
-        ingredients = new HashMap<Ingredient, Integer>();
+        ingredients = new ArrayList<Ingredient>();
     }
 
     public void addIngredient(Ingredient ingredient, int count){
-        ingredients.put(ingredient, count);
+        Ingredient newIngredient = new Ingredient(ingredient);
+        ingredients.add(newIngredient);
     }
 
-    public HashMap<Ingredient, Integer> getIngredients(){
+    public ArrayList<Ingredient> getIngredients(){
         return ingredients;
+    }
+
+    @Override
+    public int compareTo(Recipe r) {
+        return 1;
     }
 }
 
