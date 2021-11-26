@@ -21,7 +21,7 @@ public class IngredientCollection {
         hashMapIngredient.decreaseAmount(amount);
         return true;
     }
-
+    // Same idea as decreaseIngredient, except cannot currently fail
     public boolean increaseIngredientAmount(Ingredient ingredient, int amount) {
         Ingredient hashMapIngredient = ingredients.get(ingredient.getName().toLowerCase());
         hashMapIngredient.increaseAmount(amount);
