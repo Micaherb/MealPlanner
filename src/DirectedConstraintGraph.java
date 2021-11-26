@@ -1,5 +1,3 @@
-package Graph;
-
 import java.util.ArrayList;
 
 /**
@@ -7,7 +5,7 @@ import java.util.ArrayList;
  */
 public abstract class DirectedConstraintGraph {
     /** The list of all vertices */
-    ArrayList<Vertex<?, ?>> vertexList;
+    ArrayList<Vertex<Recipe,?>> vertexList;
     /** The list of all edges */
     ArrayList<Edge> edgeList;
 
@@ -26,8 +24,24 @@ public abstract class DirectedConstraintGraph {
             this.possibleValues = possibleValues;
         }
 
-        public boolean equals(Vertex<T, U> v) {
-            return this.id.equals(v.id);
+        @Override
+        public boolean equals(Object o) {
+            try {
+                if (this.getClass() != o.getClass())
+                    return false;
+                Vertex<Recipe,?> v = (Vertex<Recipe,?>) o;
+                return this.id.equals(v.id);
+            } catch (Exception e) {
+                return false;
+            }
+        }
+
+        public T getVal() {
+            return val;
+        }
+
+        public void setVal(T val) {
+            this.val = val;
         }
     }
 
@@ -36,17 +50,17 @@ public abstract class DirectedConstraintGraph {
      * Contains abstract method for evaluating edge constraint
      */
     public abstract class Edge {
-        Vertex<?,?> startVertex;
-        Vertex<?,?> endVertex;
-        public Edge(Vertex<?,?> startVertex, Vertex<?,?> endVertex) {
+        Vertex<Recipe,?> startVertex;
+        Vertex<Recipe,?> endVertex;
+        public Edge(Vertex<Recipe,?> startVertex, Vertex<Recipe,?> endVertex) {
             this.startVertex = startVertex;
             this.endVertex = endVertex;
         }
 
-        public Vertex<?,?> getStartVertex() {
+        public Vertex<Recipe,?> getStartVertex() {
             return startVertex;
         }
-        public Vertex<?,?> getEndVertex() {
+        public Vertex<Recipe,?> getEndVertex() {
             return endVertex;
         }
 
@@ -70,7 +84,7 @@ public abstract class DirectedConstraintGraph {
      * @param givenVertex the given Vertex
      * @return ArrayList of outgoing edges from the Vertices
      */
-    public ArrayList<Edge> getOutgoingEdges(Vertex<?,?> givenVertex) {
+    public ArrayList<Edge> getOutgoingEdges(Vertex<Recipe,?> givenVertex) {
         ArrayList<Edge> returnList = new ArrayList<Edge>();
         for (Edge e : edgeList) {
             if (e.getStartVertex().equals(givenVertex))
@@ -84,7 +98,7 @@ public abstract class DirectedConstraintGraph {
      * @param vertex Vertex to add to the graph
      * @return the Vertex added
      */
-    public Vertex<?,?> addVertex(Vertex<?,?> vertex) {
+    public Vertex<Recipe,?> addVertex(Vertex<Recipe,?> vertex) {
         vertexList.add(vertex);
         return vertex;
     }
@@ -103,7 +117,7 @@ public abstract class DirectedConstraintGraph {
      * Get the list of all Vertices
      * @return list of all vertices
      */
-    public ArrayList<Vertex<?,?>> getVertices() {
+    public ArrayList<Vertex<Recipe,?>> getVertices() {
         return vertexList;
     }
 
@@ -119,8 +133,8 @@ public abstract class DirectedConstraintGraph {
      * Get an empty vertex from the collection of vertices
      * @return Vertex with empty value. Returns null if no empty vertex found
      */
-    public Vertex<?, ?> getEmptyVertex() {
-        for (Vertex<?,?> vertex : vertexList) {
+    public Vertex<Recipe,?> getEmptyVertex() {
+        for (Vertex<Recipe,?> vertex : vertexList) {
             if (vertex.val == null)
                 return vertex;
         }
@@ -149,12 +163,29 @@ public abstract class DirectedConstraintGraph {
      */
     public boolean isSolved() {
         // Make sure that each Vertex has an assigned value
-        for (Vertex<?,?> vertex : vertexList) {
+        for (Vertex<Recipe,?> vertex : vertexList) {
             // In a solved graph, you can't have a Vertex with no assigned value
             if (vertex.val == null)
                 return false;
         }
         // Make sure that all values for filled boxes are valid
         return isValid();
+    }
+
+    public Vertex<Recipe,?> getVertex(Vertex<Recipe,?> vertex) {
+        for (Vertex<Recipe,?> v : getVertices()) {
+            if (v.equals(vertex))
+                return v;
+        }
+        return null;
+    }
+
+    /**
+     * Will remove all impossible values from possible values list for given Vertex.
+     * Will also need to add back possible values for backtracking purposes.
+     * @param vertex given Vertex
+     */
+    public void updatePossibleValues(Vertex<Recipe,?> vertex) {
+        // TODO: Implement
     }
 }
