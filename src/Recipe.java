@@ -23,7 +23,7 @@ public class Recipe implements Comparable<Recipe> {
 
     @Override
     public int compareTo(Recipe r) {
-        return 1;
+        return this.name.compareTo(r.name);
     }
 }
 

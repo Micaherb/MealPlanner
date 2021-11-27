@@ -1,4 +1,7 @@
-public class MealPlanGraph extends DirectedConstraintGraph {
+/**
+ * A DirectedConstraintGraph whose vertices contain Recipes, and are distinguished from one another by Integers.
+ */
+public class MealPlanGraph extends DirectedConstraintGraph<Recipe, Integer> {
 
     /**
      * Edge satisfied if the two vertices have non-equal values
@@ -9,7 +12,7 @@ public class MealPlanGraph extends DirectedConstraintGraph {
          * @param startVertex start vertex
          * @param endVertex end vertex
          */
-        public NotEqualEdge(Vertex<Recipe,?> startVertex, Vertex<Recipe,?> endVertex) {
+        public NotEqualEdge(Vertex startVertex, Vertex endVertex) {
             super(startVertex, endVertex);
         }
 
@@ -24,7 +27,7 @@ public class MealPlanGraph extends DirectedConstraintGraph {
      */
     public class IsVegetarianEdge extends Edge {
 
-        public IsVegetarianEdge(Vertex<Recipe, ?> startVertex, Vertex<Recipe, ?> endVertex) {
+        public IsVegetarianEdge(Vertex startVertex, Vertex endVertex) {
             super(startVertex, endVertex);
         }
 
@@ -43,8 +46,8 @@ public class MealPlanGraph extends DirectedConstraintGraph {
      * @param value given value
      * @return whether set was successful or not
      */
-    public boolean setVertexValue(Vertex<Recipe, ?> vertex, Recipe value) {
-        Vertex<Recipe,?> v = getVertex(vertex);
+    public boolean setVertexValue(Vertex vertex, Recipe value) {
+        Vertex v = getVertex(vertex);
         v.setVal(value);
         // Update possible values for all vertices connected to the set vertex
         for (Edge edge : getOutgoingEdges(v)) {
