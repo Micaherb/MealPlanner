@@ -1,20 +1,22 @@
 import java.util.ArrayList;
 
 /**
- * Forward checking is baked in via each Vertex having a list of possible values
+ *
+ * @param <T> Type of thing that each Vertex holds
+ * @param <U> The id by which each vertex is compared / identified.
  */
-public abstract class DirectedConstraintGraph {
+public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends Comparable<U>> {
     /** The list of all vertices */
-    ArrayList<Vertex<Recipe,?>> vertexList;
+    ArrayList<Vertex> vertexList;
     /** The list of all edges */
     ArrayList<Edge> edgeList;
 
+    ArrayList<T> ALL_POSSIBLE_VALUES;
+
     /**
      * Abstract class for a Vertex
-     * @param <T> Type of value that Vertex stores. Must be comparable
-     * @param <U> Type of id by which Vertex can be identified. Must be comparable
      */
-    public abstract class Vertex<T extends Comparable<T>, U extends Comparable<U>> {
+    public abstract class Vertex {
         T val;
         ArrayList<T> possibleValues;
         U id;
@@ -29,7 +31,8 @@ public abstract class DirectedConstraintGraph {
             try {
                 if (this.getClass() != o.getClass())
                     return false;
-                Vertex<Recipe,?> v = (Vertex<Recipe,?>) o;
+                @SuppressWarnings("unchecked")
+                Vertex v = (Vertex) o;
                 return this.id.equals(v.id);
             } catch (Exception e) {
                 return false;
@@ -50,17 +53,17 @@ public abstract class DirectedConstraintGraph {
      * Contains abstract method for evaluating edge constraint
      */
     public abstract class Edge {
-        Vertex<Recipe,?> startVertex;
-        Vertex<Recipe,?> endVertex;
-        public Edge(Vertex<Recipe,?> startVertex, Vertex<Recipe,?> endVertex) {
+        Vertex startVertex;
+        Vertex endVertex;
+        public Edge(Vertex startVertex, Vertex endVertex) {
             this.startVertex = startVertex;
             this.endVertex = endVertex;
         }
 
-        public Vertex<Recipe,?> getStartVertex() {
+        public Vertex getStartVertex() {
             return startVertex;
         }
-        public Vertex<Recipe,?> getEndVertex() {
+        public Vertex getEndVertex() {
             return endVertex;
         }
 
@@ -84,7 +87,7 @@ public abstract class DirectedConstraintGraph {
      * @param givenVertex the given Vertex
      * @return ArrayList of outgoing edges from the Vertices
      */
-    public ArrayList<Edge> getOutgoingEdges(Vertex<Recipe,?> givenVertex) {
+    public ArrayList<Edge> getOutgoingEdges(Vertex givenVertex) {
         ArrayList<Edge> returnList = new ArrayList<Edge>();
         for (Edge e : edgeList) {
             if (e.getStartVertex().equals(givenVertex))
@@ -98,7 +101,7 @@ public abstract class DirectedConstraintGraph {
      * @param vertex Vertex to add to the graph
      * @return the Vertex added
      */
-    public Vertex<Recipe,?> addVertex(Vertex<Recipe,?> vertex) {
+    public Vertex addVertex(Vertex vertex) {
         vertexList.add(vertex);
         return vertex;
     }
@@ -117,7 +120,7 @@ public abstract class DirectedConstraintGraph {
      * Get the list of all Vertices
      * @return list of all vertices
      */
-    public ArrayList<Vertex<Recipe,?>> getVertices() {
+    public ArrayList<Vertex> getVertices() {
         return vertexList;
     }
 
@@ -133,8 +136,8 @@ public abstract class DirectedConstraintGraph {
      * Get an empty vertex from the collection of vertices
      * @return Vertex with empty value. Returns null if no empty vertex found
      */
-    public Vertex<Recipe,?> getEmptyVertex() {
-        for (Vertex<Recipe,?> vertex : vertexList) {
+    public Vertex getEmptyVertex() {
+        for (Vertex vertex : vertexList) {
             if (vertex.val == null)
                 return vertex;
         }
@@ -163,7 +166,7 @@ public abstract class DirectedConstraintGraph {
      */
     public boolean isSolved() {
         // Make sure that each Vertex has an assigned value
-        for (Vertex<Recipe,?> vertex : vertexList) {
+        for (Vertex vertex : vertexList) {
             // In a solved graph, you can't have a Vertex with no assigned value
             if (vertex.val == null)
                 return false;
@@ -172,8 +175,8 @@ public abstract class DirectedConstraintGraph {
         return isValid();
     }
 
-    public Vertex<Recipe,?> getVertex(Vertex<Recipe,?> vertex) {
-        for (Vertex<Recipe,?> v : getVertices()) {
+    public Vertex getVertex(Vertex vertex) {
+        for (Vertex v : getVertices()) {
             if (v.equals(vertex))
                 return v;
         }
@@ -185,7 +188,7 @@ public abstract class DirectedConstraintGraph {
      * Will also need to add back possible values for backtracking purposes.
      * @param vertex given Vertex
      */
-    public void updatePossibleValues(Vertex<Recipe,?> vertex) {
+    public void updatePossibleValues(Vertex vertex) {
         // TODO: Implement
     }
 }
