@@ -7,6 +7,8 @@ import java.util.HashMap;
 public class Recipe implements Comparable<Recipe> {
     private String name;
     private ArrayList<Ingredient> ingredients;
+    private RecipeType recipeType;
+    public enum RecipeType { BREAKFAST, LUNCH, DINNER }
     public Recipe(String name) {
         this.name = name;
         ingredients = new ArrayList<Ingredient>();
@@ -17,6 +19,10 @@ public class Recipe implements Comparable<Recipe> {
         ingredients.add(newIngredient);
     }
 
+    public void setRecipeType( RecipeType recipeType ) {
+        this.recipeType = recipeType;
+    }
+
     public ArrayList<Ingredient> getIngredients(){
         return ingredients;
     }
@@ -24,6 +30,10 @@ public class Recipe implements Comparable<Recipe> {
     @Override
     public int compareTo(Recipe r) {
         return this.name.compareTo(r.name);
+    }
+
+    public RecipeType getRecipeType() {
+        return recipeType;
     }
 }
 

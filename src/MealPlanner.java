@@ -8,6 +8,6 @@ public class MealPlanner{
         IO io = new IO();
         io.readIngredients(planner);
         io.readRecipes(planner);
-        //Stuff Happens
+        // Stuff Happens
     }
 }
