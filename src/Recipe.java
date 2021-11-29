@@ -4,7 +4,7 @@ import java.util.HashMap;
 /**
  * A possible Recipe
  */
-public class Recipe implements Comparable<Recipe> {
+public final class Recipe implements Comparable<Recipe> {
     private String name;
     private ArrayList<Ingredient> ingredients;
     private RecipeType recipeType;
@@ -46,8 +46,8 @@ public class Recipe implements Comparable<Recipe> {
     }
 
     public boolean isValidRestriction(String r) {
-        for(int i = 0; i < ingredients.size(); i++) {
-            if(!ingredients.get(i).getRestrictions().contains(r)){
+        for (Ingredient ingredient : ingredients) {
+            if (!ingredient.getRestrictions().contains(r)) {
                 return false;
             }
         }

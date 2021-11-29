@@ -17,6 +17,18 @@ public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends 
         this.ALL_POSSIBLE_VALUES = ALL_POSSIBLE_VALUES;
     }
 
+    public void copyVertexValues(DirectedConstraintGraph<T,U> copyGraph) {
+        // If not the same amount of vertices, don't iterate to copy
+        if (this.getVertices().size() != copyGraph.getVertices().size()) {
+            return;
+        }
+        for (int i = 0; i < this.getVertices().size(); i++) {
+            // Set this graph's vertex value equal to the other graph's vertex val
+            this.getVertices().get(i).setVal(copyGraph.getVertices().get(i).getVal());
+        }
+
+    }
+
     /**
      * Abstract class for a Vertex
      */
@@ -50,6 +62,8 @@ public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends 
         public void setVal(T val) {
             this.val = val;
         }
+
+        public U getID() { return id; }
 
         public void setPossibleValues(ArrayList<T> possibleValues) {
             this.possibleValues = possibleValues;
@@ -236,8 +250,6 @@ public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends 
         }
     }
 
-
-
     /**
      * Set a vertex's value, and update possible values for connected vertices
      * @param vertex given vertex
@@ -250,5 +262,17 @@ public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends 
         for (Edge edge : getOutgoingEdges(v)) {
             updatePossibleValues(edge.getEndVertex());
         }
+    }
+
+    /**
+     * Return a list of all vertex values
+     * @return list of all vertex values
+     */
+    public ArrayList<T> toList() {
+        ArrayList<T> returnList = new ArrayList<T>();
+        for (Vertex v : vertexList) {
+            returnList.add(v.getVal());
+        }
+        return returnList;
     }
 }
