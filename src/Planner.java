@@ -43,7 +43,59 @@ public class Planner {
     public void generatePlans(Profile user, int mealCount) {
         //Create Graph
         MealPlanGraph mealPlan = new MealPlanGraph(recipes.getAll());
-            //Fill out graph with vertices and edges
+        //Create Vertices
+        for (int i = 0; i < mealCount; i++) {
+            mealPlan.addVertex(i, null, recipes.getAll());
+        }
+        //conMealTimes Edges
+        if (!user.isConMealTimes()) {
+            for (int i = 0; i < mealCount-1; i++) {
+                mealPlan.createNotEqualEdge(i, i+1);
+            }
+        }
+        //conBreakfast Edges
+        if (!user.isConBreakfast()) {
+            for (int i = 0; i < mealCount; i+=3) {
+                if(i+3 < mealCount) {
+                    mealPlan.createNotEqualEdge(i, i+3);
+                }
+            }
+        }
+        //conLunch Edges
+        if (!user.isConLunch()) {
+            for (int i = 1; i < mealCount; i+=3) {
+                if(i+3 < mealCount) {
+                    mealPlan.createNotEqualEdge(i, i+3);
+                }
+            }
+        }
+        //conDinner Edges
+        if (!user.isConDinner()) {
+            for (int i = 2; i < mealCount; i+=3) {
+                if(i+3 < mealCount) {
+                    mealPlan.createNotEqualEdge(i, i+3);
+                }
+            }
+        }
+        //dailySchedule Edges
+        if (!user.isDailySchedule()) {
+            for (int i = 0; i < mealCount; i++) {
+                Recipe.RecipeType type;
+                if(i%3 == 0 ) {
+                    type = Recipe.RecipeType.BREAKFAST;
+                } else if(i%3 == 1 ) {
+                    type = Recipe.RecipeType.LUNCH;
+                } else {
+                    type = Recipe.RecipeType.DINNER;
+                }
+
+                if(i+3 < mealCount) {
+                    mealPlan.createBothGivenRecipeTypeEdge(i, i+3, type);
+                } else {
+                    mealPlan.createBothGivenRecipeTypeEdge(i, i, type);
+                }
+            }
+        }
         //Run recursive algorithm
         recursivePlan(mealPlan);
     }
