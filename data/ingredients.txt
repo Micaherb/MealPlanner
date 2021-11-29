@@ -1,4 +1,14 @@
 Ground Beef;1/4 Pound;8;
-Cheese;Slice;0;Vegetarian;
+Cheese;Slice;1;Vegetarian;
+Shredded Cheese;1/2 Bag;4;Vegetarian;
 Bread;Slice;12;Vegetarian;Vegan;
 Milk;1/2 Cup;2;Vegetarian;
+Egg;Egg;3;Vegetarian;
+Sliced Ham;Slice;6;
+Bacon;Strip;12;
+Pasta;1/4 Cup;2;Vegetarian;Vegan;
+Tomato Sauce;1/2 Jar;2;Vegetarian;Vegan;
+Pepperoni;1/8 Pound;4;
+Pizza Dough;Pizza;2;Vegetarian;Vegan:
+Hot Dog;Weenie;1;
+Waffle Mix;Box;1;Vegetarian;Vegan;

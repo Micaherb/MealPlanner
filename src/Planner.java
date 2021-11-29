@@ -7,11 +7,11 @@ import java.util.HashMap;
 // Test change
 public class Planner {
     private RecipeList recipes;
-    private ArrayList<Recipe> mealPlan;
+    private MealPlanGraph mealPlan;
     private HashMap<String, Ingredient> totalIngredients;
     public Planner() {
         recipes = new RecipeList();
-        mealPlan = new ArrayList<Recipe>();
+        mealPlan = new MealPlanGraph(recipes.getAll());
         totalIngredients = new HashMap<String, Ingredient>();
     }
 
@@ -33,5 +33,13 @@ public class Planner {
 
     public ArrayList<Recipe> getRecipes(){
         return recipes.getAll();
+    }
+
+    public void filterRecipes(Profile user) {
+
+    }
+
+    public void generatePlans(Profile user) {
+
     }
 }

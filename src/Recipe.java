@@ -8,9 +8,18 @@ public class Recipe implements Comparable<Recipe> {
     private String name;
     private ArrayList<Ingredient> ingredients;
     private RecipeType recipeType;
-    public enum RecipeType { BREAKFAST, LUNCH, DINNER }
-    public Recipe(String name) {
+    public enum RecipeType { BREAKFAST, LUNCH, DINNER, ALL }
+    public Recipe(String name, String type) {
         this.name = name;
+        if(type.equals("Breakfast")){
+            recipeType = RecipeType.BREAKFAST;
+        } else if(type.equals("Lunch")){
+            recipeType = RecipeType.LUNCH;
+        } else if(type.equals("Dinner")){
+            recipeType = RecipeType.DINNER;
+        } else {
+            recipeType = RecipeType.ALL;
+        }
         ingredients = new ArrayList<Ingredient>();
     }
 

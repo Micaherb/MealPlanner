@@ -51,7 +51,10 @@ public class IO {
                 String data = fileScanner.nextLine();
                 //Get the name
                 String name = data.substring(0, data.indexOf(";"));
-                Recipe r = new Recipe(name);
+                data = data.substring(data.indexOf(";") + 1);
+                //Get the type
+                String type = data.substring(0, data.indexOf(";"));
+                Recipe r = new Recipe(name, type);
                 data = data.substring(data.indexOf(";") + 1);
                 //Get all Ingredients
                 while (data.length() > 0) {
@@ -68,5 +71,65 @@ public class IO {
         } catch (FileNotFoundException var10) {
             var10.printStackTrace();
         }
+    }
+
+    public Profile readProfile(String profile) {
+        Profile user = new Profile();
+        try {
+            File file = new File(profile);
+            Scanner fileScanner = new Scanner(file);
+            //Get conMealTimes
+            String data = fileScanner.nextLine();
+            String value = data.substring(data.indexOf(":") + 1, data.indexOf(";"));
+            if(value.equals("True")) {
+                user.setConMealTimes(true);
+            } else {
+                user.setConMealTimes(false);
+            }
+            //Get conBreakfast
+            data = fileScanner.nextLine();
+            value = data.substring(data.indexOf(":") + 1, data.indexOf(";"));
+            if(value.equals("True")) {
+                user.setConBreakfast(true);
+            } else {
+                user.setConBreakfast(false);
+            }
+            //Get conLunch
+            data = fileScanner.nextLine();
+            value = data.substring(data.indexOf(":") + 1, data.indexOf(";"));
+            if(value.equals("True")) {
+                user.setConLunch(true);
+            } else {
+                user.setConLunch(false);
+            }
+            //Get conDinner
+            data = fileScanner.nextLine();
+            value = data.substring(data.indexOf(":") + 1, data.indexOf(";"));
+            if(value.equals("True")) {
+                user.setConDinner(true);
+            } else {
+                user.setConDinner(false);
+            }
+            //Get conDailySchedule
+            data = fileScanner.nextLine();
+            value = data.substring(data.indexOf(":") + 1, data.indexOf(";"));
+            if(value.equals("True")) {
+                user.setDailySchedule(true);
+            } else {
+                user.setDailySchedule(false);
+            }
+            //Get Dietary Restrictions
+            data = fileScanner.nextLine();
+            data = data.substring(data.indexOf(":") + 1);
+            while (data.length() > 0) {
+                String r = data.substring(0, data.indexOf(";"));
+                user.addDietaryRestriction(r);
+                data.substring(data.indexOf(";") + 1);
+            }
+
+        } catch (FileNotFoundException var10) {
+            var10.printStackTrace();
+        }
+        return user;
     }
 }
