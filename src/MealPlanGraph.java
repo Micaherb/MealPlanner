@@ -1,7 +1,16 @@
+import java.util.ArrayList;
+
 /**
  * A DirectedConstraintGraph whose vertices contain Recipes, and are distinguished from one another by Integers.
  */
 public class MealPlanGraph extends DirectedConstraintGraph<Recipe, Integer> {
+    /**
+     * Initialize with the list of all possible recipe values a given vertex can become
+     * @param ALL_POSSIBLE_VALUES list of all possible values
+     */
+    public MealPlanGraph(ArrayList<Recipe> ALL_POSSIBLE_VALUES) {
+        super(ALL_POSSIBLE_VALUES);
+    }
 
     /**
      * Edge satisfied if the two vertices have non-equal values
@@ -17,44 +26,27 @@ public class MealPlanGraph extends DirectedConstraintGraph<Recipe, Integer> {
         }
 
         @Override
-        public boolean satisfiesConstraint() {
+        public boolean violatesConstraint() {
             return !(getStartVertex().equals(getEndVertex()));
         }
     }
 
     /**
-     * Edge satisfied if the startVertex recipe is vegetarian
+     * Edge that checks that both start and end vertex are of a given recipe type.
      */
-    public class IsVegetarianEdge extends Edge {
-
-        public IsVegetarianEdge(Vertex startVertex, Vertex endVertex) {
+    public class BothGivenRecipeTypeEdge extends Edge {
+        Recipe.RecipeType recipeType;
+        public BothGivenRecipeTypeEdge(DirectedConstraintGraph<Recipe, Integer>.Vertex startVertex, DirectedConstraintGraph<Recipe, Integer>.Vertex endVertex, Recipe.RecipeType recipeType) {
             super(startVertex, endVertex);
+            this.recipeType = recipeType;
         }
 
         @Override
-        public boolean satisfiesConstraint() {
-            // Get Recipes for Start and End vertices
-            Recipe startVertexRecipe = getStartVertex().getVal();
-            // TODO: Add vegetarian code check here? Or in recipe itself? Implement via for loop, checking that "isVegetarian" is present on each ingredient.
-            return true;
+        public boolean violatesConstraint() {
+            boolean startIsRecipeType = (startVertex.val.getRecipeType() == recipeType);
+            boolean endIsRecipeType = (endVertex.val.getRecipeType() == recipeType);
+            return !(startIsRecipeType && endIsRecipeType);
         }
     }
-
-    /**
-     * Set a vertex's value, and update possible values for connected vertices
-     * @param vertex given vertex
-     * @param value given value
-     * @return whether set was successful or not
-     */
-    public boolean setVertexValue(Vertex vertex, Recipe value) {
-        Vertex v = getVertex(vertex);
-        v.setVal(value);
-        // Update possible values for all vertices connected to the set vertex
-        for (Edge edge : getOutgoingEdges(v)) {
-            updatePossibleValues(edge.getEndVertex());
-        }
-        return true;
-    }
-
 
 }

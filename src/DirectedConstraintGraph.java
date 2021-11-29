@@ -13,6 +13,10 @@ public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends 
 
     ArrayList<T> ALL_POSSIBLE_VALUES;
 
+    public DirectedConstraintGraph(ArrayList<T> ALL_POSSIBLE_VALUES) {
+        this.ALL_POSSIBLE_VALUES = ALL_POSSIBLE_VALUES;
+    }
+
     /**
      * Abstract class for a Vertex
      */
@@ -46,6 +50,14 @@ public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends 
         public void setVal(T val) {
             this.val = val;
         }
+
+        public void setPossibleValues(ArrayList<T> possibleValues) {
+            this.possibleValues = possibleValues;
+        }
+
+        public ArrayList<T> getPossibleValues() {
+            return possibleValues;
+        }
     }
 
     /**
@@ -69,9 +81,9 @@ public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends 
 
         /**
          * See if edge constraint is satisfied for given vertices
-         * @return ture if constraint satisfied, false otherwise.
+         * @return true if constraint satisfied, false otherwise.
          */
-        public abstract boolean satisfiesConstraint();
+        public abstract boolean violatesConstraint();
 
         /**
          * Return if this edge's vertices have assigned values or not
@@ -96,6 +108,19 @@ public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends 
         return returnList;
     }
 
+    /**
+     * Get all incoming edges for a given Vertex
+     * @param givenVertex given Vertex
+     * @return list of all incoming edges
+     */
+    public ArrayList<Edge> getIncomingEdges(Vertex givenVertex) {
+        ArrayList<Edge> returnList = new ArrayList<Edge>();
+        for (Edge e : edgeList) {
+            if (e.getEndVertex().equals(givenVertex))
+                returnList.add(e);
+        }
+        return returnList;
+    }
     /**
      * Add a Vertex to the graph.
      * @param vertex Vertex to add to the graph
@@ -152,8 +177,8 @@ public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends 
         for (Edge edge : getEdges()) {
             // Unassigned values for vertices don't stop a graph from being valid -- it just means it's not complete
             if (edge.verticesHaveAssignedValues()) {
-                // If edge does not satisfy constraints, graph is not valid
-                if (!edge.satisfiesConstraint())
+                // If edge violates constraints, graph is not valid
+                if (edge.violatesConstraint())
                     return false;
             }
         }
@@ -189,6 +214,41 @@ public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends 
      * @param vertex given Vertex
      */
     public void updatePossibleValues(Vertex vertex) {
-        // TODO: Implement
+        // Refresh all the possible values of the given vertex
+        vertex.setPossibleValues(ALL_POSSIBLE_VALUES);
+
+        // Incoming edges should affect change in a given vertex, so iterate and check through all incoming edges
+        for (Edge e : getIncomingEdges(vertex)) {
+            // Need only set possibleValues for unassigned vertices. Connected vertices that effect possibleValues of
+            // this vertex should have an assigned value though -- otherwise how can they make an impact?
+            if (vertex.val == null & e.getStartVertex() != null) {
+                for (int i = 0; i < vertex.getPossibleValues().size(); i++) {
+                    // Set vertex value to possible value.
+                    vertex.setVal(vertex.getPossibleValues().get(i));
+                    // If possible value violates constraint edge, remove possible value
+                    if (e.violatesConstraint()) {
+                        // Remove possible value
+                        vertex.getPossibleValues().remove(i);
+                        i--;
+                    }
+                }
+            }
+        }
+    }
+
+
+
+    /**
+     * Set a vertex's value, and update possible values for connected vertices
+     * @param vertex given vertex
+     * @param value given value
+     */
+    public void setVertexValue(Vertex vertex, T value) {
+        Vertex v = getVertex(vertex);
+        v.setVal(value);
+        // Update possible values for all vertices connected to the set vertex (outgoing)
+        for (Edge edge : getOutgoingEdges(v)) {
+            updatePossibleValues(edge.getEndVertex());
+        }
     }
 }
