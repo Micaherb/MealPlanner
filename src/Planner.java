@@ -7,11 +7,9 @@ import java.util.HashMap;
 // Test change
 public class Planner {
     private RecipeList recipes;
-    private MealPlanGraph mealPlan;
     private HashMap<String, Ingredient> totalIngredients;
     public Planner() {
         recipes = new RecipeList();
-        mealPlan = new MealPlanGraph(recipes.getAll());
         totalIngredients = new HashMap<String, Ingredient>();
     }
 
@@ -42,7 +40,16 @@ public class Planner {
         }
     }
 
-    public void generatePlans(Profile user) {
-
+    public void generatePlans(Profile user, int mealCount) {
+        //Create Graph
+        MealPlanGraph mealPlan = new MealPlanGraph(recipes.getAll());
+            //Fill out graph with vertices and edges
+        //Run recursive algorithm
+        recursivePlan(mealPlan);
     }
+
+    private MealPlanGraph recursivePlan(MealPlanGraph mealPlan) {
+        return mealPlan;
+    }
+
 }
