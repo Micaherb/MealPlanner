@@ -44,5 +44,14 @@ public class Recipe implements Comparable<Recipe> {
     public RecipeType getRecipeType() {
         return recipeType;
     }
+
+    public boolean isValidRestriction(String r) {
+        for(int i = 0; i < ingredients.size(); i++) {
+            if(!ingredients.get(i).getRestrictions().contains(r)){
+                return false;
+            }
+        }
+        return true;
+    }
 }
 

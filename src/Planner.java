@@ -36,7 +36,10 @@ public class Planner {
     }
 
     public void filterRecipes(Profile user) {
-
+        for(int i = 0; i < user.getDietaryRestrictions().size(); i++) {
+            String r = user.getDietaryRestrictions().get(i);
+            RecipeList.filterRestriction(r);
+        }
     }
 
     public void generatePlans(Profile user) {

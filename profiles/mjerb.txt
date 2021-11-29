@@ -3,4 +3,4 @@ Allow duplicate recipes for consecutive breakfasts:False;
 Allow duplicate recipes for consecutive lunches:False;
 Allow duplicate recipes for consecutive dinners:False;
 Adhere to daily schedule:True;
-Dietary restrictions:;
+Dietary restrictions:
