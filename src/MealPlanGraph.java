@@ -13,6 +13,26 @@ public class MealPlanGraph extends DirectedConstraintGraph<Recipe, Integer> {
     }
 
     /**
+     * Vertex of the MealPlanGraph
+     */
+    public class MealVertex extends Vertex {
+        public MealVertex(Integer id, Recipe val, ArrayList<Recipe> possibleValues) {
+            super(id, val, possibleValues);
+        }
+    }
+
+
+    /**
+     * Add a Vertex to the graph.
+     * @return the Vertex added
+     */
+    public Vertex addVertex(Integer id, Recipe val, ArrayList<Recipe> possibleValues) {
+        MealVertex vertex = new MealVertex(id, val, possibleValues);
+        vertexList.add(vertex);
+        return vertex;
+    }
+
+    /**
      * Edge satisfied if the two vertices have non-equal values
      */
     public class NotEqualEdge extends Edge {
@@ -31,6 +51,11 @@ public class MealPlanGraph extends DirectedConstraintGraph<Recipe, Integer> {
         }
     }
 
+    public void createNotEqualEdge(int i1, int i2) {
+        Edge e = new NotEqualEdge(vertexList.get(i1), vertexList.get(i2));
+        addEdge(e);
+    }
+
     /**
      * Edge that checks that both start and end vertex are of a given recipe type.
      */
@@ -47,6 +72,11 @@ public class MealPlanGraph extends DirectedConstraintGraph<Recipe, Integer> {
             boolean endIsRecipeType = (endVertex.val.getRecipeType() == recipeType);
             return !(startIsRecipeType && endIsRecipeType);
         }
+    }
+
+    public void createBothGivenRecipeTypeEdge(int i1, int i2, Recipe.RecipeType type) {
+        Edge e = new BothGivenRecipeTypeEdge(vertexList.get(i1), vertexList.get(i2), type);
+        addEdge(e);
     }
 
 }
