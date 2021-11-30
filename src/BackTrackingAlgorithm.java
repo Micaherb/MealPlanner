@@ -11,9 +11,9 @@ import java.util.ArrayList;
 
 public class BackTrackingAlgorithm {
 
-    DirectedConstraintGraph<Recipe,Integer> graph;
+    MealPlanGraph graph;
     CSPInference inference;
-    public BackTrackingAlgorithm(DirectedConstraintGraph<Recipe,Integer> graph, CSPInference inference) {
+    public BackTrackingAlgorithm(MealPlanGraph graph, CSPInference inference) {
         this.graph = graph;
         this.inference = inference;
     }
@@ -27,17 +27,12 @@ public class BackTrackingAlgorithm {
     ArrayList<ArrayList<Recipe>> run() {
         // List of all solutions found for the graph (their string equivalents)
         ArrayList<ArrayList<Recipe>> solutionLists = new ArrayList<ArrayList<Recipe>>();
-        // Make mutable graph
-        MealPlanGraph mutableGraph = new MealPlanGraph(graph.ALL_POSSIBLE_VALUES);
-        // Add vertex to mutableGraph for all vertices in graph
-        for (DirectedConstraintGraph<Recipe, Integer>.Vertex vertex : graph.getVertices()) {
-            mutableGraph.addVertex(vertex.getID(), null, vertex.getPossibleValues());
-        }
-        mutableGraph.copyVertexValues(graph);
         // Most recent solution found from RCBS
-        MealPlanGraph recentSolution = RCBS(mutableGraph, solutionLists);
+        MealPlanGraph recentSolution = RCBS(graph, solutionLists);
         // Add singular solution to list
-        solutionLists.add(recentSolution.toList());
+        if (recentSolution != null) {
+            solutionLists.add(recentSolution.toList());
+        }
         return solutionLists;
     }
 
