@@ -53,5 +53,9 @@ public final class Recipe implements Comparable<Recipe> {
         }
         return true;
     }
+
+    public String getName() {
+        return this.name;
+    }
 }
 

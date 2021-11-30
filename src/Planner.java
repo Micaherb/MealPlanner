@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -97,11 +98,25 @@ public class Planner {
             }
         }
         //Run recursive algorithm
-        recursivePlan(mealPlan);
+        ArrayList<ArrayList<Recipe>> solutionLists = recursivePlan(mealPlan);
+
+        // If no solutions, print out no solutions
+        if (solutionLists.isEmpty()) {
+            System.out.println("No meal plan solutions possible");
+        }
+        else {
+            // Print out just the first meal plan solution
+            System.out.println("Meal plan solution:");
+            for (Recipe r : solutionLists.get(0)) {
+                System.out.println(r.getName());
+            }
+        }
     }
 
-    private MealPlanGraph recursivePlan(MealPlanGraph mealPlan) {
-        return mealPlan;
+    private ArrayList<ArrayList<Recipe>> recursivePlan(MealPlanGraph mealPlan) {
+        ForwardChecking forwardCheckInference = new ForwardChecking();
+        BackTrackingAlgorithm backtrackSolver = new BackTrackingAlgorithm(mealPlan, forwardCheckInference);
+        return backtrackSolver.run();
     }
 
 }

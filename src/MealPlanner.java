@@ -4,7 +4,7 @@ public class MealPlanner{
     public MealPlanner() {}
 
     public static void main(String[] args) {
-        if(args.length != 3) {
+        if(args.length != 2) {
             System.out.println("Usage:");
             System.out.println("./MealPlanner [profile pathname] [meal #]");
             return;
@@ -15,9 +15,9 @@ public class MealPlanner{
         io.readIngredients(planner);
         io.readRecipes(planner);
         //Setup user settings
-        Profile user = io.readProfile(args[1]);
+        Profile user = io.readProfile(args[0]);
         planner.filterRecipes(user);
         //Run algorithm
-        planner.generatePlans(user, Integer.parseInt(args[2]));
+        planner.generatePlans(user, Integer.parseInt(args[1]));
     }
 }
