@@ -121,10 +121,10 @@ public class IO {
             //Get Dietary Restrictions
             data = fileScanner.nextLine();
             data = data.substring(data.indexOf(":") + 1);
-            while (data.length() > 0) {
+            while (data.length() > 1) {
                 String r = data.substring(0, data.indexOf(";"));
                 user.addDietaryRestriction(r);
-                data.substring(data.indexOf(";") + 1);
+                data = data.substring(data.indexOf(";") + 1);
             }
 
         } catch (FileNotFoundException var10) {

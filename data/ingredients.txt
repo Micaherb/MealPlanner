@@ -9,6 +9,6 @@ Bacon;Strip;12;
 Pasta;1/4 Cup;2;Vegetarian;Vegan;
 Tomato Sauce;1/2 Jar;2;Vegetarian;Vegan;
 Pepperoni;1/8 Pound;4;
-Pizza Dough;Pizza;2;Vegetarian;Vegan:
+Pizza Dough;Pizza;2;Vegetarian;Vegan;
 Hot Dog;Weenie;1;
 Waffle Mix;Box;1;Vegetarian;Vegan;
