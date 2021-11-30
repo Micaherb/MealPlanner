@@ -40,6 +40,7 @@ class IOTest {
 
     @org.junit.jupiter.api.Test
     void readRecipes() {
+        testIO.readIngredients(testPlanner);
         testIO.readRecipes(testPlanner);
         Recipe recipe1 = testPlanner.getRecipes().get(0);
         Recipe recipe6 = testPlanner.getRecipes().get(5);
