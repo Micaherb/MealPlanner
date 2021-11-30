@@ -79,7 +79,7 @@ public class Planner {
             }
         }
         //followsDailySchedule Edges
-        if (!user.followsDailySchedule()) {
+        if (user.followsDailySchedule()) {
             for (int i = 0; i < mealCount; i++) {
                 Recipe.RecipeType type;
                 if(i%3 == 0 ) {

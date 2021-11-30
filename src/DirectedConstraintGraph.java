@@ -7,9 +7,9 @@ import java.util.ArrayList;
  */
 public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends Comparable<U>> {
     /** The list of all vertices */
-    ArrayList<Vertex> vertexList;
+    ArrayList<Vertex> vertexList = new ArrayList<Vertex>();
     /** The list of all edges */
-    ArrayList<Edge> edgeList;
+    ArrayList<Edge> edgeList = new ArrayList<Edge>();
 
     ArrayList<T> ALL_POSSIBLE_VALUES;
 
