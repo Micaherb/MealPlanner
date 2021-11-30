@@ -55,6 +55,7 @@ public class BackTrackingAlgorithm {
      * @return solution graph, null if no solution found
      */
     MealPlanGraph RCBS(MealPlanGraph graph, ArrayList<ArrayList<Recipe>> solutionLists) {
+        System.out.println(graph.getVertexRecipesAsString());
         // See if graph is a unique solution
         if (graph.isSolved() && !solutionLists.contains(graph.toList()))
             return graph;

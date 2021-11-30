@@ -79,4 +79,15 @@ public class MealPlanGraph extends DirectedConstraintGraph<Recipe, Integer> {
         addEdge(e);
     }
 
+    /**
+     * Get all the Recipe values for the vertices in one string
+     * @return the one string of all the recipe values
+     */
+    public String getVertexRecipesAsString() {
+        StringBuilder returnStringBuilder = new StringBuilder();
+        for (Vertex v : getVertices()) {
+            returnStringBuilder.append(v.getVal() + ", ");
+        }
+        return returnStringBuilder.toString();
+    }
 }
