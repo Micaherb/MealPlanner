@@ -86,7 +86,12 @@ public class MealPlanGraph extends DirectedConstraintGraph<Recipe, Integer> {
     public String getVertexRecipesAsString() {
         StringBuilder returnStringBuilder = new StringBuilder();
         for (Vertex v : getVertices()) {
-            returnStringBuilder.append(v.getVal() + ", ");
+            if(v.getVal() == null) {
+                returnStringBuilder.append("null, ");
+            }
+            else {
+                returnStringBuilder.append(v.getVal().getName() + ", ");
+            }
         }
         return returnStringBuilder.toString();
     }

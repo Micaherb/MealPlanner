@@ -36,15 +36,8 @@ public class BackTrackingAlgorithm {
         mutableGraph.copyVertexValues(graph);
         // Most recent solution found from RCBS
         MealPlanGraph recentSolution = RCBS(mutableGraph, solutionLists);
-        // Continue finding unique solutions until no more solutions can be found
-        while (recentSolution != null) {
-            // Reset mutable graph to original graph
-            mutableGraph.copyVertexValues(graph);
-            // Update solutionStrings with most recent solution found
-            solutionLists.add(recentSolution.toList());
-            // Search for another solution
-            recentSolution = RCBS(mutableGraph, solutionLists);
-        }
+        // Add singular solution to list
+        solutionLists.add(recentSolution.toList());
         return solutionLists;
     }
 
@@ -57,12 +50,15 @@ public class BackTrackingAlgorithm {
     MealPlanGraph RCBS(MealPlanGraph graph, ArrayList<ArrayList<Recipe>> solutionLists) {
         System.out.println(graph.getVertexRecipesAsString());
         // See if graph is a unique solution
-        if (graph.isSolved() && !solutionLists.contains(graph.toList()))
+        if (graph.isSolved() && !solutionLists.contains(graph.toList())) {
+            System.out.println("Solution Found");
             return graph;
+        }
         // Graph is solved, but not unique
-        if (graph.isSolved() && solutionLists.contains(graph.toList()))
+        if (graph.isSolved() && solutionLists.contains(graph.toList())) {
+            System.out.println("Solution Already Exists");
             return null;
-
+        }
         // Get a vertex without a value
         MealPlanGraph.Vertex emptyVertex = graph.getEmptyVertex();
         // Get a list of all possible values to check for this vertex
