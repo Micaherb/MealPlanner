@@ -48,38 +48,38 @@ public class Planner {
         for (int i = 0; i < mealCount; i++) {
             mealPlan.addVertex(i, null, recipes.getAll());
         }
-        //conMealTimes Edges
-        if (!user.isConMealTimes()) {
+        //allowsConsecutiveIdenticalMeals Edges
+        if (!user.allowsIdenticalConsecutiveMeals()) {
             for (int i = 0; i < mealCount-1; i++) {
                 mealPlan.createNotEqualEdge(i, i+1);
             }
         }
-        //conBreakfast Edges
-        if (!user.isConBreakfast()) {
+        //allowsConsecutiveIdenticalBreakfast Edges
+        if (!user.allowsIdenticalConsecutiveMeals(Recipe.RecipeType.BREAKFAST)) {
             for (int i = 0; i < mealCount; i+=3) {
                 if(i+3 < mealCount) {
                     mealPlan.createNotEqualEdge(i, i+3);
                 }
             }
         }
-        //conLunch Edges
-        if (!user.isConLunch()) {
+        //allowsConsecutiveIdenticalLunch Edges
+        if (!user.allowsIdenticalConsecutiveMeals(Recipe.RecipeType.LUNCH)) {
             for (int i = 1; i < mealCount; i+=3) {
                 if(i+3 < mealCount) {
                     mealPlan.createNotEqualEdge(i, i+3);
                 }
             }
         }
-        //conDinner Edges
-        if (!user.isConDinner()) {
+        //allowsConsecutiveIdenticalDinner Edges
+        if (!user.allowsIdenticalConsecutiveMeals(Recipe.RecipeType.DINNER)) {
             for (int i = 2; i < mealCount; i+=3) {
                 if(i+3 < mealCount) {
                     mealPlan.createNotEqualEdge(i, i+3);
                 }
             }
         }
-        //dailySchedule Edges
-        if (!user.isDailySchedule()) {
+        //followsDailySchedule Edges
+        if (!user.followsDailySchedule()) {
             for (int i = 0; i < mealCount; i++) {
                 Recipe.RecipeType type;
                 if(i%3 == 0 ) {

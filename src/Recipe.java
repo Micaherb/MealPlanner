@@ -45,9 +45,14 @@ public final class Recipe implements Comparable<Recipe> {
         return recipeType;
     }
 
+    /**
+     * See if recipe has given restriction
+     * @param r given restriction
+     * @return if recipe has given restriction
+     */
     public boolean isValidRestriction(String r) {
         for (Ingredient ingredient : ingredients) {
-            if (!ingredient.getRestrictions().contains(r)) {
+            if (!ingredient.hasRestriction(r)) {
                 return false;
             }
         }
@@ -56,6 +61,14 @@ public final class Recipe implements Comparable<Recipe> {
 
     public String getName() {
         return this.name;
+    }
+
+    public boolean hasIngredientForName(String name) {
+        for (Ingredient i : ingredients) {
+            if (i.getName().equals(name))
+                return true;
+        }
+        return false;
     }
 }
 

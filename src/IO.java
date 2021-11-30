@@ -78,45 +78,45 @@ public class IO {
         try {
             File file = new File(profile);
             Scanner fileScanner = new Scanner(file);
-            //Get conMealTimes
+            //Get allowsConsecutiveIdenticalMeals
             String data = fileScanner.nextLine();
             String value = data.substring(data.indexOf(":") + 1, data.indexOf(";"));
             if(value.equals("True")) {
-                user.setConMealTimes(true);
+                user.setAllowsConsecutiveIdenticalMeals(true);
             } else {
-                user.setConMealTimes(false);
+                user.setAllowsConsecutiveIdenticalMeals(false);
             }
-            //Get conBreakfast
+            //Get allowsConsecutiveIdenticalBreakfast
             data = fileScanner.nextLine();
             value = data.substring(data.indexOf(":") + 1, data.indexOf(";"));
             if(value.equals("True")) {
-                user.setConBreakfast(true);
+                user.setAllowsConsecutiveIdenticalMeals(Recipe.RecipeType.BREAKFAST, true);
             } else {
-                user.setConBreakfast(false);
+                user.setAllowsConsecutiveIdenticalMeals(Recipe.RecipeType.BREAKFAST, false);
             }
-            //Get conLunch
+            //Get allowsConsecutiveIdenticalLunch
             data = fileScanner.nextLine();
             value = data.substring(data.indexOf(":") + 1, data.indexOf(";"));
             if(value.equals("True")) {
-                user.setConLunch(true);
+                user.setAllowsConsecutiveIdenticalMeals(Recipe.RecipeType.LUNCH, true);
             } else {
-                user.setConLunch(false);
+                user.setAllowsConsecutiveIdenticalMeals(Recipe.RecipeType.LUNCH, false);
             }
-            //Get conDinner
+            //Get allowsConsecutiveIdenticalDinner
             data = fileScanner.nextLine();
             value = data.substring(data.indexOf(":") + 1, data.indexOf(";"));
             if(value.equals("True")) {
-                user.setConDinner(true);
+                user.setAllowsConsecutiveIdenticalMeals(Recipe.RecipeType.DINNER, true);
             } else {
-                user.setConDinner(false);
+                user.setAllowsConsecutiveIdenticalMeals(Recipe.RecipeType.DINNER, false);
             }
-            //Get conDailySchedule
+            //Get followsDailySchedule
             data = fileScanner.nextLine();
             value = data.substring(data.indexOf(":") + 1, data.indexOf(";"));
             if(value.equals("True")) {
-                user.setDailySchedule(true);
+                user.setFollowsDailySchedule(true);
             } else {
-                user.setDailySchedule(false);
+                user.setFollowsDailySchedule(false);
             }
             //Get Dietary Restrictions
             data = fileScanner.nextLine();

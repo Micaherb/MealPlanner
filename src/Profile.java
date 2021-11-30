@@ -1,55 +1,70 @@
 import java.util.ArrayList;
 
 public class Profile {
-    private boolean conMealTimes;
-    private boolean conBreakfast;
-    private boolean conLunch;
-    private boolean conDinner;
-    private boolean dailySchedule;
+    /**
+     * Allow identical consecutive meals
+     */
+    private boolean allowsConsecutiveIdenticalMeals;
+    /**
+     * Allow identical consecutive meals of type Breakfast
+     */
+    private boolean allowsConsecutiveIdenticalBreakfast;
+    /**
+     * Allow identical consecutive meals of type Lunch
+     */
+    private boolean allowsConsecutiveIdenticalLunch;
+    /**
+     * Allow identical consecutive meals of type Dinner
+     */
+    private boolean allowsConsecutiveIdenticalDinner;
+    /**
+     * Arrange meal schedule so that it adheres to a daily schedule
+     */
+    private boolean followsDailySchedule;
     private ArrayList<String> dietaryRestrictions;
 
     public Profile() {
         dietaryRestrictions = new ArrayList<String>();
     }
 
-    public boolean isConMealTimes() {
-        return conMealTimes;
+    public boolean allowsIdenticalConsecutiveMeals() {
+        return allowsConsecutiveIdenticalMeals;
     }
 
-    public void setConMealTimes(boolean conMealTimes) {
-        this.conMealTimes = conMealTimes;
+    public void setAllowsConsecutiveIdenticalMeals(boolean allowsConsecutiveIdenticalMeals) {
+        this.allowsConsecutiveIdenticalMeals = allowsConsecutiveIdenticalMeals;
     }
 
-    public boolean isConBreakfast() {
-        return conBreakfast;
+    public boolean allowsIdenticalConsecutiveMeals(Recipe.RecipeType ofType) {
+        switch(ofType) {
+            case BREAKFAST:
+                return allowsConsecutiveIdenticalBreakfast;
+            case LUNCH:
+                return allowsConsecutiveIdenticalLunch;
+            case DINNER:
+                return allowsConsecutiveIdenticalDinner;
+            default:
+                return false;
+        }
     }
 
-    public void setConBreakfast(boolean conBreakfast) {
-        this.conBreakfast = conBreakfast;
+    public void setAllowsConsecutiveIdenticalMeals(Recipe.RecipeType ofType, boolean value) {
+        switch(ofType) {
+            case BREAKFAST:
+                allowsConsecutiveIdenticalBreakfast = value; break;
+            case LUNCH:
+                allowsConsecutiveIdenticalLunch = value; break;
+            case DINNER:
+                allowsConsecutiveIdenticalDinner = value; break;
+        }
     }
 
-    public boolean isConLunch() {
-        return conLunch;
+    public boolean followsDailySchedule() {
+        return followsDailySchedule;
     }
 
-    public void setConLunch(boolean conLunch) {
-        this.conLunch = conLunch;
-    }
-
-    public boolean isConDinner() {
-        return conDinner;
-    }
-
-    public void setConDinner(boolean conDinner) {
-        this.conDinner = conDinner;
-    }
-
-    public boolean isDailySchedule() {
-        return dailySchedule;
-    }
-
-    public void setDailySchedule(boolean dailySchedule) {
-        this.dailySchedule = dailySchedule;
+    public void setFollowsDailySchedule(boolean followsDailySchedule) {
+        this.followsDailySchedule = followsDailySchedule;
     }
 
     public ArrayList<String> getDietaryRestrictions() {
@@ -59,4 +74,5 @@ public class Profile {
     public void addDietaryRestriction(String restriction) {
         dietaryRestrictions.add(restriction);
     }
+
 }

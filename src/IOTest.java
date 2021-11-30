@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -5,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 class IOTest {
     Planner testPlanner;
     IO testIO;
-
+    static final String TEST_PROFILE_PATH = "profiles/mjerb.txt";
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
         testPlanner = new Planner();
@@ -41,12 +42,35 @@ class IOTest {
     void readRecipes() {
         testIO.readRecipes(testPlanner);
         Recipe recipe1 = testPlanner.getRecipes().get(0);
-        Recipe recipe2 = testPlanner.getRecipes().get(5);
-        Recipe recipe3 = testPlanner.getRecipes().get(8);
-        // ...
+        Recipe recipe6 = testPlanner.getRecipes().get(5);
+        Recipe recipe9 = testPlanner.getRecipes().get(8);
+        // Make sure all recipes exist
+        assertNotNull(recipe1);
+        assertNotNull(recipe6);
+        assertNotNull(recipe9);
+        // Make sure all recipes have the appropriate name
+        assertEquals("Burger", recipe1.getName());
+        assertEquals("Bacon", recipe6.getName());
+        assertEquals("Hot Dogs", recipe9.getName());
+        // Make sure Recipes all have appropriate ingredients (Just ingredient 1 for now)
+        Assertions.assertTrue(recipe1.hasIngredientForName("Ground Beef"));
+        Assertions.assertTrue(recipe1.hasIngredientForName("Cheese"));
+        Assertions.assertTrue(recipe1.hasIngredientForName("Bread"));
+        // ... Can add more ingredient checks for other recipes if required
+        // Assert meal types are correct
+        Assertions.assertEquals(Recipe.RecipeType.DINNER, recipe1.getRecipeType());
+        Assertions.assertEquals(Recipe.RecipeType.BREAKFAST, recipe6.getRecipeType());
+        Assertions.assertEquals(Recipe.RecipeType.DINNER, recipe9.getRecipeType());
     }
 
     @org.junit.jupiter.api.Test
     void readProfile() {
+        Profile testProfile = testIO.readProfile(TEST_PROFILE_PATH);
+        assertFalse(testProfile.allowsIdenticalConsecutiveMeals());
+        assertFalse(testProfile.allowsIdenticalConsecutiveMeals(Recipe.RecipeType.BREAKFAST));
+        assertFalse(testProfile.allowsIdenticalConsecutiveMeals(Recipe.RecipeType.LUNCH));
+        assertFalse(testProfile.allowsIdenticalConsecutiveMeals(Recipe.RecipeType.DINNER));
+        Assertions.assertTrue(testProfile.followsDailySchedule());
+        Assertions.assertTrue(testProfile.getDietaryRestrictions().isEmpty());
     }
 }
