@@ -235,7 +235,7 @@ public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends 
         for (Edge e : getIncomingEdges(vertex)) {
             // Need only set possibleValues for unassigned vertices. Connected vertices that effect possibleValues of
             // this vertex should have an assigned value though -- otherwise how can they make an impact?
-            if (vertex.val == null & e.getStartVertex() != null) {
+            if (vertex.val == null & e.getStartVertex().getVal() != null) {
                 for (int i = 0; i < vertex.getPossibleValues().size(); i++) {
                     // Set vertex value to possible value.
                     vertex.setVal(vertex.getPossibleValues().get(i));
@@ -246,6 +246,8 @@ public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends 
                         i--;
                     }
                 }
+                // Restore vertex back to null
+                vertex.setVal(null);
             }
         }
     }

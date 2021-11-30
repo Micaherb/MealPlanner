@@ -47,7 +47,7 @@ public class MealPlanGraph extends DirectedConstraintGraph<Recipe, Integer> {
 
         @Override
         public boolean violatesConstraint() {
-            return !(getStartVertex().equals(getEndVertex()));
+            return getStartVertex().getVal().equals(getEndVertex().getVal());
         }
     }
 
@@ -90,7 +90,8 @@ public class MealPlanGraph extends DirectedConstraintGraph<Recipe, Integer> {
                 returnStringBuilder.append("null, ");
             }
             else {
-                returnStringBuilder.append(v.getVal().getName() + ", ");
+                returnStringBuilder.append(v.getVal().getName());
+                returnStringBuilder.append(", ");
             }
         }
         return returnStringBuilder.toString();
