@@ -24,16 +24,9 @@ public class  BackTrackingAlgorithm {
      * @return ArrayList of ArrayList of recipes
      */
 
-    ArrayList<ArrayList<Recipe>> run() {
+    ArrayList<String> run() {
         // List of all solutions found for the graph (their string equivalents)
-        ArrayList<ArrayList<Recipe>> solutionLists = new ArrayList<ArrayList<Recipe>>();
-        // Most recent solution found from RCBS
-        MealPlanGraph recentSolution = RCBS(graph);
-        // Add singular solution to list
-        if (recentSolution != null) {
-            solutionLists.add(recentSolution.toList());
-        }
-        return solutionLists;
+        return RCBS(graph);
     }
 
 /**
@@ -41,11 +34,12 @@ public class  BackTrackingAlgorithm {
      * @param graph given FutoshikiGraph
      * @return solution graph, null if no solution found
      */
-    MealPlanGraph RCBS(MealPlanGraph graph) {
+    ArrayList<String> RCBS(MealPlanGraph graph) {
+        ArrayList<String> solutionStrings = new ArrayList<String>();
         // See if graph is a unique solution
         if (graph.isSolved()) {
-            System.out.println("Solution Found");
-            return graph;
+            solutionStrings.add(graph.getVertexRecipesAsString());
+            return solutionStrings;
         }
         // Get a vertex without a value
         MealPlanGraph.Vertex emptyVertex = graph.getEmptyVertex();
@@ -62,15 +56,16 @@ public class  BackTrackingAlgorithm {
             // See if graph is valid given chosen value and fits inference
             if (graph.isValid() && inference.fitsInference(graph)) {
                 // Get result of search for chosen emptyVertex value
-                MealPlanGraph result = RCBS(graph);
+                ArrayList<String> result = RCBS(graph);
                 // If result is not null, it is a solution graph
-                if (result != null)
-                    return result;
+                if (result != null) {
+                    solutionStrings.addAll(result);
+                }
             }
             // Set emptyVertex back to empty value
             graph.setVertexValue(emptyVertex, null);
         }
-        return null;
+        return solutionStrings;
     }
 
 }
