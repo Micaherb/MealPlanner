@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -13,9 +14,11 @@ public class  BackTrackingAlgorithm {
 
     MealPlanGraph graph;
     CSPInference inference;
-    public BackTrackingAlgorithm(MealPlanGraph graph, CSPInference inference) {
+    IngredientCollection ingredients;
+    public BackTrackingAlgorithm(MealPlanGraph graph, CSPInference inference, HashMap<String, Ingredient> totalIngredients) {
         this.graph = graph;
         this.inference = inference;
+        this.ingredients = new IngredientCollection(totalIngredients);
     }
 
 
@@ -51,19 +54,24 @@ public class  BackTrackingAlgorithm {
         // Get a list of all possible values to check for this vertex
         ArrayList<Recipe> possibleValuesToCheck = new ArrayList<Recipe>(emptyVertex.getPossibleValues());
         for (Recipe possibleRecipe : possibleValuesToCheck) {
-            // Set emptyVertex to test value
-            graph.setVertexValue(emptyVertex, possibleRecipe);
-            // See if graph is valid given chosen value and fits inference
-            if (graph.isValid() && inference.fitsInference(graph)) {
-                // Get result of search for chosen emptyVertex value
-                ArrayList<String> result = RCBS(graph);
-                // If result is not null, it is a solution graph
-                if (result != null) {
-                    solutionStrings.addAll(result);
+            //Check if ingredients are available
+            if(ingredients.hasIngredients(possibleRecipe)) {
+                // Set emptyVertex to test value
+                graph.setVertexValue(emptyVertex, possibleRecipe);
+                // See if graph is valid given chosen value and fits inference
+                if (graph.isValid() && inference.fitsInference(graph)) {
+                    ingredients.removeIngredients(possibleRecipe);
+                    // Get result of search for chosen emptyVertex value
+                    ArrayList<String> result = RCBS(graph);
+                    // If result is not null, it is a solution graph
+                    if (result != null) {
+                        solutionStrings.addAll(result);
+                    }
+                    ingredients.addIngredients(possibleRecipe);
                 }
+                // Set emptyVertex back to empty value
+                graph.setVertexValue(emptyVertex, null);
             }
-            // Set emptyVertex back to empty value
-            graph.setVertexValue(emptyVertex, null);
         }
         return solutionStrings;
     }

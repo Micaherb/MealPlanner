@@ -6,7 +6,7 @@ import java.util.HashMap;
  */
 public final class Recipe implements Comparable<Recipe> {
     private String name;
-    private ArrayList<Ingredient> ingredients;
+    private HashMap<Ingredient, Integer> ingredients;
     private RecipeType recipeType;
     public enum RecipeType { BREAKFAST, LUNCH, DINNER, ALL }
     public Recipe(String name, String type) {
@@ -20,19 +20,19 @@ public final class Recipe implements Comparable<Recipe> {
         } else {
             recipeType = RecipeType.ALL;
         }
-        ingredients = new ArrayList<Ingredient>();
+        ingredients = new HashMap<Ingredient, Integer>();
     }
 
     public void addIngredient(Ingredient ingredient, int count){
         Ingredient newIngredient = new Ingredient(ingredient);
-        ingredients.add(newIngredient);
+        ingredients.put(newIngredient, count);
     }
 
     public void setRecipeType( RecipeType recipeType ) {
         this.recipeType = recipeType;
     }
 
-    public ArrayList<Ingredient> getIngredients(){
+    public HashMap<Ingredient, Integer> getIngredients(){
         return ingredients;
     }
 
@@ -51,7 +51,7 @@ public final class Recipe implements Comparable<Recipe> {
      * @return if recipe has given restriction
      */
     public boolean isValidRestriction(String r) {
-        for (Ingredient ingredient : ingredients) {
+        for (Ingredient ingredient : ingredients.keySet()) {
             if (!ingredient.hasRestriction(r)) {
                 return false;
             }
@@ -64,7 +64,7 @@ public final class Recipe implements Comparable<Recipe> {
     }
 
     public boolean hasIngredientForName(String name) {
-        for (Ingredient i : ingredients) {
+        for (Ingredient i : ingredients.keySet()) {
             if (i.getName().equals(name))
                 return true;
         }

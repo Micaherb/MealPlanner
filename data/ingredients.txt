@@ -1,6 +1,6 @@
 Ground Beef;1/4 Pound;8;
-Cheese;Slice;1;Vegetarian;
-Shredded Cheese;1/2 Bag;4;Vegetarian;
+Cheese;Slice;3;Vegetarian;
+Shredded Cheese;1/2 Bag;1;Vegetarian;
 Bread;Slice;12;Vegetarian;Vegan;
 Milk;1/2 Cup;2;Vegetarian;
 Egg;Egg;3;Vegetarian;

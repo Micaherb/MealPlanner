@@ -105,16 +105,25 @@ public class Planner {
             System.out.println("No meal plan solutions possible");
         }
         else {
-            for (String solution : solutionStrings) {
-                // Print out just the first meal plan solution
-                System.out.println(solution);
+            if(solutionStrings.size() < 5) {
+                for (String solution : solutionStrings) {
+                    // Print all solutions
+                    System.out.println(solution);
+                }
+            } else {
+                ArrayList<Integer> chosen = new ArrayList<Integer>();
+                for(int i = 0; i < 5; i++) {
+                    // Print 5 different random solutions
+                    chosen.add((int) (Math.random() * (solutionStrings.size())));
+                    System.out.println(solutionStrings.get(chosen.get(i)).substring(0,solutionStrings.get(chosen.get(i)).length()-2));
+                }
             }
         }
     }
 
     private ArrayList<String> recursivePlan(MealPlanGraph mealPlan) {
         ForwardChecking forwardCheckInference = new ForwardChecking();
-        BackTrackingAlgorithm backtrackSolver = new BackTrackingAlgorithm(mealPlan, forwardCheckInference);
+        BackTrackingAlgorithm backtrackSolver = new BackTrackingAlgorithm(mealPlan, forwardCheckInference, totalIngredients);
         return backtrackSolver.run();
     }
 

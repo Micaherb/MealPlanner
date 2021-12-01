@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class IngredientCollection {
@@ -13,7 +14,7 @@ public class IngredientCollection {
      * @param amount amount to decrease by
      * @return if decrease was successful or not
      */
-    public boolean decreaseIngredientAmount(Ingredient ingredient, int amount) {
+    private boolean decreaseIngredientAmount(Ingredient ingredient, int amount) {
         Ingredient hashMapIngredient = ingredients.get(ingredient.getName().toLowerCase());
         if (hashMapIngredient.getCount() < amount) {
             return false;
@@ -22,10 +23,37 @@ public class IngredientCollection {
         return true;
     }
     // Same idea as decreaseIngredient, except cannot currently fail
-    public boolean increaseIngredientAmount(Ingredient ingredient, int amount) {
+    private boolean increaseIngredientAmount(Ingredient ingredient, int amount) {
         Ingredient hashMapIngredient = ingredients.get(ingredient.getName().toLowerCase());
         hashMapIngredient.increaseAmount(amount);
         return true;
+    }
+
+    public boolean hasIngredients(Recipe r) {
+        HashMap<Ingredient, Integer> requirements = r.getIngredients();
+        for(Ingredient i : requirements.keySet()) {
+            String name = i.getName().toLowerCase();
+            int amountRequired = requirements.get(i);
+            int amountOwned = ingredients.get(name).getCount();
+            if(amountRequired > amountOwned) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void removeIngredients(Recipe r) {
+        HashMap<Ingredient, Integer> requirements = r.getIngredients();
+        for(Ingredient i : requirements.keySet()) {
+            decreaseIngredientAmount(i, requirements.get(i));
+        }
+    }
+
+    public void addIngredients(Recipe r) {
+        HashMap<Ingredient, Integer> requirements = r.getIngredients();
+        for(Ingredient i : requirements.keySet()) {
+            increaseIngredientAmount(i, requirements.get(i));
+        }
     }
 
 }
