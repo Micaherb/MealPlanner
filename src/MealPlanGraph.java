@@ -27,7 +27,9 @@ public class MealPlanGraph extends DirectedConstraintGraph<Recipe, Integer> {
      * @return the Vertex added
      */
     public Vertex addVertex(Integer id, Recipe val, ArrayList<Recipe> possibleValues) {
-        MealVertex vertex = new MealVertex(id, val, possibleValues);
+        ArrayList<Recipe> myPossibleValues = new ArrayList<Recipe>();
+        myPossibleValues.addAll(possibleValues);
+        MealVertex vertex = new MealVertex(id, val, myPossibleValues);
         vertexList.add(vertex);
         return vertex;
     }

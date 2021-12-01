@@ -4,10 +4,8 @@ import java.util.ArrayList;
  * Maintains list of all available recipes
  */
 public class RecipeList {
-    private static ArrayList<Recipe> recipes;
-    public RecipeList() {
-        recipes = new ArrayList<Recipe>();
-    }
+    private static ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+    public RecipeList() {}
 
     public void add(Recipe recipe){
         recipes.add(recipe);
@@ -18,7 +16,7 @@ public class RecipeList {
     }
 
     public static void filterRestriction(String r){
-        for(int i = 0; i < recipes.size(); i++) {
+        for(int i = recipes.size()-1; i >= 0; i--) {
             if(!recipes.get(i).isValidRestriction(r)){
                 recipes.remove(i);
             }

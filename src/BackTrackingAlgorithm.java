@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 
 
-public class BackTrackingAlgorithm {
+public class  BackTrackingAlgorithm {
 
     MealPlanGraph graph;
     CSPInference inference;

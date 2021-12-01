@@ -1,10 +1,10 @@
 Burger;Dinner;Ground Beef:1;Cheese:1;Bread:2;
 Grilled Cheese;Lunch;Cheese:1;Bread:2;
-Scrambled Eggs;All;Egg:2;Shredded Cheese:1;
+Scrambled Eggs;Breakfast;Egg:2;Shredded Cheese:1;
 Toast;Breakfast;Bread:1;
 Ham Sandwich;Lunch;Bread:2;Sliced Ham:3;
 Bacon;Breakfast;Bacon:4;
 Mac and Cheese;Lunch;Pasta:2;Shredded Cheese:1;
 Pizza;Dinner;Pizza Dough:1;Shredded Cheese:1;Pepperoni:1;Tomato Sauce:1;
 Hot Dogs;Dinner;Hot Dog:2;Bread:2;
-Waffles;All;Waffle Mix:1;
+Waffles;Breakfast;Waffle Mix:1;

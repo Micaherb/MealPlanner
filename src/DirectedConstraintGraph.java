@@ -66,7 +66,9 @@ public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends 
         public U getID() { return id; }
 
         public void setPossibleValues(ArrayList<T> possibleValues) {
-            this.possibleValues = possibleValues;
+            ArrayList<T> myPossibleValues = new ArrayList<T>();
+            myPossibleValues.addAll(possibleValues);
+            this.possibleValues = myPossibleValues;
         }
 
         public ArrayList<T> getPossibleValues() {
