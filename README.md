@@ -32,3 +32,9 @@ Mac and Cheese;Lunch;Pasta:2;Shredded Cheese:1;
 2 Sample profiles are provided.
 
 Mark each criteria with 'True' or 'False', and add dietary restrictions separated by semicolons.
+
+##Expected Output
+The program will output a comma separated list of recipes that fits the given constraints.
+
+It will print up to 5 valid meal plans, if there are more than 5, it will choose 5 randomly from
+all possible meal plans.
