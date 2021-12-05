@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -76,6 +77,23 @@ public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends 
         }
     }
 
+    public abstract class EdgeType {
+        ArrayList<Vertex> vertexList;
+
+        public EdgeType(ArrayList<Vertex> vertexList) {
+            this.vertexList = vertexList;
+        }
+
+        public abstract boolean violatesConstraint();
+
+        public boolean verticesHaveAssignedValues() {
+            for (Vertex v : vertexList) {
+                if (v.val == null)
+                    return false;
+            }
+            return true;
+        }
+    }
     /**
      * Abstract class for an Edge.
      * Contains abstract method for evaluating edge constraint
@@ -237,7 +255,7 @@ public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends 
         for (Edge e : getIncomingEdges(vertex)) {
             // Need only set possibleValues for unassigned vertices. Connected vertices that effect possibleValues of
             // this vertex should have an assigned value though -- otherwise how can they make an impact?
-            if (vertex.val == null & e.getStartVertex().getVal() != null) {
+            if (vertex.val == null) {
                 for (int i = 0; i < vertex.getPossibleValues().size(); i++) {
                     // Set vertex value to possible value.
                     vertex.setVal(vertex.getPossibleValues().get(i));

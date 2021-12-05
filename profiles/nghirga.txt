@@ -1,6 +1,6 @@
 Allow duplicate recipes for consecutive mealtimes:False;
 Allow duplicate recipes for consecutive breakfasts:True;
-Allow duplicate recipes for consecutive lunches:False;
-Allow duplicate recipes for consecutive dinners:False;
-Adhere to daily schedule:True;
+Allow duplicate recipes for consecutive lunches:True;
+Allow duplicate recipes for consecutive dinners:True;
+Adhere to daily schedule:False;
 Dietary restrictions:Vegetarian;
