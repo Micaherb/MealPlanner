@@ -80,8 +80,8 @@ public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends 
     public abstract class EdgeType {
         ArrayList<Vertex> vertexList;
 
-        public EdgeType(ArrayList<Vertex> vertexList) {
-            this.vertexList = vertexList;
+        public EdgeType() {
+            this.vertexList = new ArrayList<Vertex>();
         }
 
         public abstract boolean violatesConstraint();
@@ -98,33 +98,19 @@ public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends 
      * Abstract class for an Edge.
      * Contains abstract method for evaluating edge constraint
      */
-    public abstract class Edge {
-        Vertex startVertex;
-        Vertex endVertex;
+    public abstract class Edge extends EdgeType {
         public Edge(Vertex startVertex, Vertex endVertex) {
-            this.startVertex = startVertex;
-            this.endVertex = endVertex;
+            super();
+            this.vertexList.add(startVertex);
+            this.vertexList.add(endVertex);
         }
-
+        // Start vertex is at front of list
         public Vertex getStartVertex() {
-            return startVertex;
+            return vertexList.get(0);
         }
+        // End vertex is at end of list
         public Vertex getEndVertex() {
-            return endVertex;
-        }
-
-        /**
-         * See if edge constraint is satisfied for given vertices
-         * @return true if constraint satisfied, false otherwise.
-         */
-        public abstract boolean violatesConstraint();
-
-        /**
-         * Return if this edge's vertices have assigned values or not
-         * @return true if vertices have values, false otherwise
-         */
-        public boolean verticesHaveAssignedValues() {
-            return startVertex.val != null && endVertex.val != null;
+            return vertexList.get(1);
         }
     }
 
