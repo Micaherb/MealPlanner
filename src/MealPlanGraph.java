@@ -48,7 +48,7 @@ public class MealPlanGraph extends DirectedConstraintGraph<Recipe, Integer> {
         }
 
         @Override
-        public boolean violatesConstraint() {
+        public boolean checkConstraint() {
             if (getStartVertex().getVal() == null || getEndVertex().getVal() == null) {
                 return false;
             }
@@ -72,7 +72,7 @@ public class MealPlanGraph extends DirectedConstraintGraph<Recipe, Integer> {
         }
 
         @Override
-        public boolean violatesConstraint() {
+        public boolean checkConstraint() {
             boolean startIsRecipeType = (getStartVertex().val.getRecipeType() == recipeType);
             boolean endIsRecipeType = (getEndVertex().val.getRecipeType() == recipeType);
             return !(startIsRecipeType && endIsRecipeType);

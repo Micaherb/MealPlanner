@@ -84,7 +84,15 @@ public abstract class DirectedConstraintGraph<T extends Comparable<T>,U extends 
             this.vertexList = new ArrayList<Vertex>();
         }
 
-        public abstract boolean violatesConstraint();
+        public boolean violatesConstraint() {
+            /** Constraint not violated via empty values **/
+            if (!verticesHaveAssignedValues()) {
+                return false;
+            }
+            return checkConstraint();
+        }
+
+        public abstract boolean checkConstraint();
 
         public boolean verticesHaveAssignedValues() {
             for (Vertex v : vertexList) {
